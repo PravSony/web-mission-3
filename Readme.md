@@ -6,6 +6,7 @@
 
 ## Selects
 
+```sql
 Получить список юзернеймов пользователей
 SELECT username FROM users;
 
@@ -29,4 +30,4 @@ FROM (
     GROUP BY from_username
 ) AS sent_messages_per_user
 GROUP BY username;
-
+```
