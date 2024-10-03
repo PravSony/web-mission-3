@@ -1,26 +1,32 @@
-# Mission 2
+# Mission 3
 
-## Part 0
+## Buildship
 
-[Link to video](https://youtu.be/mF3k6zDiFOo)
+[Link to video](https://youtu.be/tkVo6nzqdxM)
 
-## Part1
+## Selects
 
-- Вопрос 1	 
-> SSH ― это специальный протокол, который позволяет устанавливать защищенное соединение между двумя компьютерами через интернет. Например, используется для удалённого управления сервером через интернет.
+Получить список юзернеймов пользователей
+SELECT username FROM users;
 
+Получить кол-во отправленных сообщений каждым пользователем
+SELECT from_username, COUNT(id) AS number_of_sent_messages
+FROM messages
+GROUP BY from_username; 
 
-- Вопрос 2	 
->  Файл /.ssh/authorized_keys
+Получить пользователя с самым большим кол-вом полученных сообщений и само количество
+SELECT to_username, COUNT(id) AS "number of received messages"
+FROM messages
+GROUP BY to_username
+ORDER BY "number of received messages" DESC
+LIMIT 1;
 
-- Вопрос 3	 
-> Webhooks и long polling - это два различных метода взаимодействия между клиентом и сервером в веб-разработке, которые используются для передачи данных в реальном времени. Webhooks отправляет информацию на сервер в момент определенного заранее события (реактивный подход). long polling обеспечивает постоянное взаимодействие клиента и сервера с целью получения информации об обновлении (активный подход).
-
-- Вопрос 4	 
-> Issues - это как книга жалоб на гитхаб. Представляет собой систему, которая позволяет разработчикам оставлять комментарии к коду, сообщать об ошибках в репозитории. Функционал позволяет планировать и обсуждать дальнейшую работу над проектом.
-huggingface/parler-tts#19 PabloMK7/citra#75
-
-- Вопрос 5	 
-> В нужной папке создать временный пустой (0 байт) файл с именем .gitkeep. 2
-
+Получить среднее кол-во сообщений, отправленное каждым пользователем
+SELECT username, AVG(number_of_sent_messages) AS average_sent_messages
+FROM (
+    SELECT from_username AS username, COUNT(*) AS number_of_sent_messages
+    FROM messages
+    GROUP BY from_username
+) AS sent_messages_per_user
+GROUP BY username;
 
